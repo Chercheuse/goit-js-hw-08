@@ -67,14 +67,14 @@ const images = [
 for (let image of images) {
   const gallery = document.querySelector(".gallery");
   const listItem = document.createElement("li");
-  listItem.class = "gallery-item";
+  listItem.classList.add("gallery-item");
   gallery.appendChild(listItem);
   const imageLink = document.createElement("a");
-  imageLink.class = "gallery-link";
+  imageLink.classList.add("gallery-link");
   imageLink.href = image.original;
   listItem.appendChild(imageLink);
   const img = document.createElement("img");
-  img.class = "gallery-image";
+  img.classList.add("gallery-image");
   img.src = image.preview;
   img.dataset.source = image.original;
   img.alt = image.description;
