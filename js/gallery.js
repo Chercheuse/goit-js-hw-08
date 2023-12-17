@@ -67,16 +67,43 @@ const images = [
 for (let image of images) {
   const gallery = document.querySelector(".gallery");
   const listItem = document.createElement("li");
-  listItem.classList.add("gallery-item");
-  gallery.appendChild(listItem);
   const imageLink = document.createElement("a");
+  const img = document.createElement("img");
+  listItem.classList.add("gallery-item");
   imageLink.classList.add("gallery-link");
   imageLink.href = image.original;
-  listItem.appendChild(imageLink);
-  const img = document.createElement("img");
   img.classList.add("gallery-image");
   img.src = image.preview;
   img.dataset.source = image.original;
   img.alt = image.description;
+  listItem.appendChild(imageLink);
+  gallery.appendChild(listItem);
   imageLink.appendChild(img);
 }
+
+const galleryItems = document.querySelector(".gallery");
+
+galleryItems.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  const source = event.target.dataset.source;
+  console.log(source);
+
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
+
+  const lightbox = basicLightbox.create(
+    `<img src="${source}" alt="Large Image">`
+  );
+
+  lightbox.show();
+
+  function closeBtn(event) {
+    if (event.key === "Escape") {
+      lightbox.close();
+      window.removeEventListener("keydown", closeBtn);
+    }
+  }
+  window.addEventListener("keydown", closeBtn);
+});
